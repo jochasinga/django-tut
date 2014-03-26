@@ -1,6 +1,6 @@
-# Create your views here.
-from django.http import HttpResponse
-# from django.template import RequestContext, loader
+# For stub methods for detail, result and vote
+from django.http import HttpResponse, Http404
+# This is a convenient method render()
 from django.shortcuts import render
 from polls.models import Poll
 
@@ -10,7 +10,8 @@ def index(req):
     return render(req, 'polls/index.html', context)
 
 def detail(req, poll_id):
-    return HttpResponse("You're looking at poll %s." % poll_id)
+    poll = get_object_or_404(Poll, pk=poll_id)
+    return render(req, 'polls/detail.html', {'poll':poll})
 
 def results(req, poll_id):
     return HttpResponse("You're looking at the results of poll %s." % poll_id)
